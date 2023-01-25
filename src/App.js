@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { React, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import About from "./Component/About";
+import Home from "./Component/Home";
 function App() {
+  const [value, setValue] = useState("");
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`You choose ${value} language`);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/home"
+            element={
+              <Home
+                value={value}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            }
+          ></Route>
+          <Route path="/grid" element={<About />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
